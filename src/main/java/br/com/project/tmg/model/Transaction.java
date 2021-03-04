@@ -2,13 +2,13 @@ package br.com.project.tmg.model;
 
 import java.util.Objects;
 
-public class Transacao {
+public class Transaction {
 
     private String descricao;
     private Long data;
     private Integer valor;
 
-    public Transacao(String descricao, Long data, Integer valor) {
+    public Transaction(String descricao, Long data, Integer valor) {
         this.descricao = descricao;
         this.data = data;
         this.valor = valor;
@@ -30,7 +30,7 @@ public class Transacao {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Transacao transacao = (Transacao) o;
+        Transaction transacao = (Transaction) o;
         return descricao.equals(transacao.descricao) && data.equals(transacao.data) && valor.equals(transacao.valor);
     }
 

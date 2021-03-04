@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import br.com.project.tmg.utils.RandomValuesUtils;
 
-public class TransacaoBuilder {
+public class TransactionBuilder {
 
     private String descricao;
     private Integer valor;
@@ -16,7 +16,7 @@ public class TransacaoBuilder {
 
     private RandomValuesUtils random;
 
-    public TransacaoBuilder(Integer userId, Integer ano, Integer mes, Integer index) {
+    public TransactionBuilder(Integer userId, Integer ano, Integer mes, Integer index) {
         this.userId = userId;
         this.ano = ano;
         this.mes = mes;
@@ -26,7 +26,7 @@ public class TransacaoBuilder {
         this.random = new RandomValuesUtils(value);
     }
 
-    public TransacaoBuilder descricao() {
+    public TransactionBuilder descricao() {
         var desc = new StringBuffer();
         var words = random.getOneValue(index);
 
@@ -44,7 +44,7 @@ public class TransacaoBuilder {
         return this;
     }
 
-    public TransacaoBuilder valor() {
+    public TransactionBuilder valor() {
         var multiplier = random.getOneValue(index);
         var signal = Math.pow(-1, multiplier);
 
@@ -54,7 +54,7 @@ public class TransacaoBuilder {
         return this;
     }
 
-    public TransacaoBuilder data(){
+    public TransactionBuilder data(){
         var data = LocalDate.of(ano, mes, getDay(ano, mes, index));
         Timestamp timestamp = Timestamp.valueOf(data.atStartOfDay());
 
@@ -63,8 +63,8 @@ public class TransacaoBuilder {
         return this;
     }
 
-    public Transacao build() {
-        return new Transacao(this.descricao, this.data, this.valor);
+    public Transaction build() {
+        return new Transaction(this.descricao, this.data, this.valor);
     }
 
     private String generateRandomWord(int numberOfSyllables) {
