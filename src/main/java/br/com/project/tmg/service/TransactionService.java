@@ -13,19 +13,19 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-	public boolean validTransactionParameters(Integer userId, Integer year, Integer month) {
+	public boolean validParameters(Integer userId, Integer year, Integer month) {
         return (userId < 1000 || userId > 100000) ||
               (year > LocalDate.now().getYear() || year < 1962) ||
               (month < 1 || month > 12);
     }
 	
-    public List<Transaction> generateTransactionListMock(Integer userId, Integer year, Integer month) {
+    public List<Transaction> generateTransactionsMock(Integer userId, Integer year, Integer month) {
 
         var transactionListSize = generateTransactioListSize(userId, month);
         var transactions = new ArrayList<Transaction>();
 
-        for (int index = 1; index <= transactionListSize; index++){
-            transactions.add(generateMockFromKey(userId, year, month, index));
+        for (int transactioIndex = 1; transactioIndex <= transactionListSize; transactioIndex++){
+            transactions.add(generateTransactionMockFromKey(userId, year, month, transactioIndex));
         }
         return transactions;
     }
@@ -36,7 +36,7 @@ public class TransactionService {
         return mes * firstUserIdDigit;
     }
 
-    private Transaction generateMockFromKey(Integer userId, Integer year, Integer month, Integer index) {
+    private Transaction generateTransactionMockFromKey(Integer userId, Integer year, Integer month, Integer index) {
     	
     	var transactionKey = new TransactionKey(userId, year, month);
     	
