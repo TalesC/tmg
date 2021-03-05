@@ -1,21 +1,25 @@
-package br.com.project.tmg.utils;
+package br.com.project.tmg.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomValuesUtils {
+public class TransactionKey {
 
 
     private List<Integer> values = new ArrayList<>();
+   
 
-    public RandomValuesUtils(Integer value) {
-        for (int i = 0; i < value.toString().length(); i++){
-            var v = Integer.parseInt(value.toString().substring(i, i +1));
+    public TransactionKey(Integer userId, Integer year, Integer month) {
+    	
+    	Integer transactionKey = (userId/100) * year * month;
+    	    	
+        for (int i = 0; i < transactionKey.toString().length(); i++){
+            var v = Integer.parseInt(transactionKey.toString().substring(i, i +1));
             if(v > 0) values.add(v);
         }
     }
 
-    public Integer getOneValue(Integer index) {
+    public Integer getRandomValue(Integer index) {
         var size = values.size();
 
         if (index >= 0) {

@@ -1,7 +1,9 @@
 package br.com.project.tmg.service;
 
 import br.com.project.tmg.model.Transaction;
-import br.com.project.tmg.model.TransactionBuilder;
+import br.com.project.tmg.model.TransactionKey;
+import br.com.project.tmg.model.builder.TransactionBuilder;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,13 +19,13 @@ public class TransactionService {
               (month < 1 || month > 12);
     }
 	
-    public List<Transaction> generateMockList(Integer userId, Integer year, Integer month) {
+    public List<Transaction> generateTransactionListMock(Integer userId, Integer year, Integer month) {
 
         var transactionListSize = generateTransactioListSize(userId, month);
         var transactions = new ArrayList<Transaction>();
 
         for (int index = 1; index <= transactionListSize; index++){
-            transactions.add(generateMock(userId, year, month, index));
+            transactions.add(generateMockFromKey(userId, year, month, index));
         }
         return transactions;
     }
@@ -34,11 +36,14 @@ public class TransactionService {
         return mes * firstUserIdDigit;
     }
 
-    private Transaction generateMock(Integer userId, Integer ano, Integer mes, Integer index) {
-        return new TransactionBuilder(userId, ano, mes, index)
-                .descricao()
-                .valor()
-                .data()
+    private Transaction generateMockFromKey(Integer userId, Integer year, Integer month, Integer index) {
+    	
+    	var transactionKey = new TransactionKey(userId, year, month);
+    	
+        return new TransactionBuilder()
+                .descricao(transactionKey, index)
+                .valor(transactionKey, userId, year, month, index)
+                .data(year, month, index)
                 .build();
     }
 

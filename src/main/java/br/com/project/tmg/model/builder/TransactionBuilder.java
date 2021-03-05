@@ -1,9 +1,10 @@
-package br.com.project.tmg.model;
+package br.com.project.tmg.model.builder;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
-import br.com.project.tmg.utils.RandomValuesUtils;
+import br.com.project.tmg.model.TransactionKey;
+import br.com.project.tmg.model.Transaction;
 
 public class TransactionBuilder {
 
@@ -12,31 +13,21 @@ public class TransactionBuilder {
     private Long data;
 
 
-    private Integer userId, ano, mes, index;
-
-    private RandomValuesUtils random;
-
-    public TransactionBuilder(Integer userId, Integer ano, Integer mes, Integer index) {
-        this.userId = userId;
-        this.ano = ano;
-        this.mes = mes;
-        this.index = index;
-
-        var value = (userId/100) * ano * mes;
-        this.random = new RandomValuesUtils(value);
+    public TransactionBuilder() {
+       super(); 
     }
 
-    public TransactionBuilder descricao() {
+    public TransactionBuilder descricao(TransactionKey key, Integer index) {
         var desc = new StringBuffer();
-        var words = random.getOneValue(index);
+        var words = key.getRandomValue(index);
 
         for(int i = 0; i <= words; i++){
-            var syllables = random.getOneValue(i);
+            var syllables = key.getRandomValue(i);
 
             var futureSize = desc.length() + (2 * syllables) + 1;
             if (futureSize > 51) break;
 
-            desc.append(generateRandomWord(syllables))
+            desc.append(generateRandomWord(key,syllables))
                  .append(" ");
         }
         this.descricao = desc.toString().trim();
@@ -44,18 +35,18 @@ public class TransactionBuilder {
         return this;
     }
 
-    public TransactionBuilder valor() {
-        var multiplier = random.getOneValue(index);
+    public TransactionBuilder valor(TransactionKey key, Integer userId, Integer year, Integer month, Integer index) {
+        var multiplier = key.getRandomValue(index);
         var signal = Math.pow(-1, multiplier);
 
-        Double valor = (multiplier * userId / mes) * signal;
+        Double valor = (multiplier * userId / month) * signal;
         this.valor = valor.intValue();
 
         return this;
     }
 
-    public TransactionBuilder data(){
-        var data = LocalDate.of(ano, mes, getDay(ano, mes, index));
+    public TransactionBuilder data(Integer year, Integer month, Integer index){
+        var data = LocalDate.of(year, month, getDay(year, month, index));
         Timestamp timestamp = Timestamp.valueOf(data.atStartOfDay());
 
         this.data = timestamp.getTime();
@@ -67,22 +58,23 @@ public class TransactionBuilder {
         return new Transaction(this.descricao, this.data, this.valor);
     }
 
-    private String generateRandomWord(int numberOfSyllables) {
+    
+    private String generateRandomWord(TransactionKey key, Integer numberOfSyllables) {
         var consonants = "bcdfghjklmnpqrstvhwz";
         var vowels = "aeiou";
         var word = new StringBuilder();
 
         for (int i = 0; i <= numberOfSyllables; i++) {
-            var consonant =  getLetter(consonants, i);
-            var vowel = getLetter(vowels, i);
+            var consonant =  getLetter(key, consonants, i);
+            var vowel = getLetter(key, vowels, i);
 
             word.append(consonant).append(vowel);
         }
         return word.toString();
     }
 
-    private char getLetter(String letters, Integer number){
-        var random = this.random.getOneValue(number);
+    private char getLetter(TransactionKey key, String letters, Integer number){
+        var random = key.getRandomValue(number);
         var size = letters.length();
 
         while(random >= size) {
