@@ -34,8 +34,8 @@ public class TransactionDescriptionBuilder {
         var vowels = "aeiou";
         var word = new StringBuilder();
 
-        for (int i = 0; i <= numberOfSyllables; i++) {
-        	var ramdonLetterIndex = key.getRandomValue(i);
+        for (int syllableIndex = 0; syllableIndex <= numberOfSyllables; syllableIndex++) {
+        	var ramdonLetterIndex = key.getRandomValue(syllableIndex);
         	
             var consonant =  getLetter(consonants, ramdonLetterIndex);
             var vowel = getLetter(vowels, ramdonLetterIndex);
