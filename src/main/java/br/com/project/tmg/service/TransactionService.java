@@ -41,9 +41,9 @@ public class TransactionService {
     	var transactionKey = new TransactionKey(userId, year, month);
     	
         return new TransactionBuilder()
-                .descricao(transactionKey, index)
-                .valor(transactionKey, userId, year, month, index)
-                .data(year, month, index)
+                .description(transactionKey, index)
+                .value(transactionKey, userId, year, month, index)
+                .date(year, month, index)
                 .build();
     }
 

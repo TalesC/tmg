@@ -1,41 +1,64 @@
 package br.com.project.tmg.model;
 
-import java.util.Objects;
-
 public class Transaction {
 
-    private String descricao;
-    private Long data;
-    private Integer valor;
+    private String description;
+    private Long date;
+    private Integer value;
 
-    public Transaction(String descricao, Long data, Integer valor) {
-        this.descricao = descricao;
-        this.data = data;
-        this.valor = valor;
+    public Transaction(String description, Long date, Integer value) {
+        this.description = description;
+        this.date = date;
+        this.value = value;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Long getData() {
-        return data;
-    }
+	public Long getDate() {
+		return date;
+	}
 
-    public Integer getValor() {
-        return valor;
-    }
+	public Integer getValue() {
+		return value;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transaction transacao = (Transaction) o;
-        return descricao.equals(transacao.descricao) && data.equals(transacao.data) && valor.equals(transacao.valor);
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(descricao, data, valor);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transaction other = (Transaction) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!value.equals(other.value))
+			return false;
+		return true;
+	}
+        
 }
