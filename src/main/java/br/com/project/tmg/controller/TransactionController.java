@@ -20,7 +20,7 @@ public class TransactionController {
                                               @PathVariable("year") Integer year,
                                               @PathVariable("month") Integer month) {
 
-        if(transacaoService.validParameters(userId, year, month))
+        if(!transacaoService.validParameters(userId, year, month))
             return ResponseEntity.badRequest().body("Erro!! Parametros invalidos.");
 
         var transacoes = transacaoService.generateTransactionsMock(userId, year, month);

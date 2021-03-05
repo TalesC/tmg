@@ -14,9 +14,9 @@ import java.util.List;
 public class TransactionService {
 
 	public boolean validParameters(Integer userId, Integer year, Integer month) {
-        return (userId < 1000 || userId > 100000) ||
-              (year > LocalDate.now().getYear() || year < 1962) ||
-              (month < 1 || month > 12);
+        return (userId >= 1000 && userId <= 100000) &&
+              (year <= LocalDate.now().getYear() && year >= 1962) &&
+              (month >= 1 && month <= 12);
     }
 	
     public List<Transaction> generateTransactionsMock(Integer userId, Integer year, Integer month) {
