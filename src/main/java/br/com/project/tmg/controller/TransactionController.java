@@ -23,8 +23,8 @@ public class TransactionController {
         if(!transacaoService.validParameters(userId, year, month))
             return ResponseEntity.badRequest().body("Erro!! Parametros invalidos.");
 
-        var transacoes = transacaoService.generateTransactionsMock(userId, year, month);
-        return ResponseEntity.ok().body(transacoes);
+        var transactions = transacaoService.generateTransactionsMock(userId, year, month);
+        return ResponseEntity.ok().body(transactions);
     }
 
     
