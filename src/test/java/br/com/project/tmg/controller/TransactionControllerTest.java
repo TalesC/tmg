@@ -20,7 +20,7 @@ class TransactionControllerTest {
 
     @Test
     void deveRetornarStatusOKQuandoBuscarGerarListarTransacoes() throws Exception {
-        var uri = new URI("/99999/transacoes/2019/10");
+        var uri = new URI("/99999/transactions/2019/10");
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -28,7 +28,7 @@ class TransactionControllerTest {
 
     @Test
     void deveRetornarStatusBadRequestQuandoInputInvalido() throws Exception {
-        var uri = new URI("/99999/transacoes/2019/30");
+        var uri = new URI("/99999/transactions/2019/30");
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());

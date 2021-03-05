@@ -15,10 +15,10 @@ public class TransactionController {
     @Autowired
     private TransactionService transacaoService;
 
-    @GetMapping("/{id}/transacoes/{ano}/{mes}")
+    @GetMapping("/{id}/transactions/{year}/{month}")
     public ResponseEntity<Object> generateTransaction(@PathVariable("id") Integer userId,
-                                              @PathVariable("ano") Integer year,
-                                              @PathVariable("mes") Integer month) {
+                                              @PathVariable("year") Integer year,
+                                              @PathVariable("month") Integer month) {
 
         if(transacaoService.validParameters(userId, year, month))
             return ResponseEntity.badRequest().body("Erro!! Parametros invalidos.");
