@@ -1,4 +1,4 @@
-package br.com.project.tmg.model;
+package br.com.project.tmg.dto;
 
 public class ParamsDTO {
 	

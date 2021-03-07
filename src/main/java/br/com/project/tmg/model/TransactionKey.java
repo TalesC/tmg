@@ -3,6 +3,8 @@ package br.com.project.tmg.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.project.tmg.dto.ParamsDTO;
+
 public class TransactionKey {
 
 

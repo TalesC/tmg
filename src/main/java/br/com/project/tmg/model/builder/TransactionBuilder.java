@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import br.com.project.tmg.model.TransactionKey;
-import br.com.project.tmg.model.ParamsDTO;
+import br.com.project.tmg.dto.ParamsDTO;
 import br.com.project.tmg.model.Transaction;
 
 public class TransactionBuilder {
