@@ -9,16 +9,16 @@ public class TransactionKey {
     private List<Integer> values = new ArrayList<>();
    
 
-    public TransactionKey(Integer userId, Integer year, Integer month) {
-    	
-    	Integer transactionKey = (userId/100) * year * month;
-    	    	
-        for (int i = 0; i < transactionKey.toString().length(); i++){
-            var v = Integer.parseInt(transactionKey.toString().substring(i, i +1));
-            if(v > 0) values.add(v);
-        }
+    public TransactionKey(ParamsDTO params) {
+    	generateKey(params.getUserId(),
+    				params.getYear(),
+    				params.getMonth());
     }
-
+    
+    public TransactionKey(Integer userId, Integer year, Integer month) {
+    	generateKey(userId, year, month);
+    }
+    
     public Integer getRandomValue(Integer index) {
         var size = values.size();
 
@@ -31,6 +31,15 @@ public class TransactionKey {
         }else
            return values.get(0);
 
+    }
+    
+    private void generateKey(Integer userId, Integer year, Integer month) {
+    	Integer transactionKey = (userId/100) * year * month;
+    	
+        for (int i = 0; i < transactionKey.toString().length(); i++){
+            var v = Integer.parseInt(transactionKey.toString().substring(i, i +1));
+            if(v > 0) values.add(v);
+        }
     }
 
 }

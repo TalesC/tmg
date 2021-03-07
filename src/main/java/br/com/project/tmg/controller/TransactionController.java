@@ -13,17 +13,17 @@ import br.com.project.tmg.service.TransactionService;
 public class TransactionController {
 
     @Autowired
-    private TransactionService transacaoService;
+    private TransactionService transactionService;
 
     @GetMapping("/{id}/transactions/{year}/{month}")
-    public ResponseEntity<Object> generateTransaction(@PathVariable("id") Integer userId,
-                                              @PathVariable("year") Integer year,
-                                              @PathVariable("month") Integer month) {
+    public ResponseEntity<Object> generate(@PathVariable("id") Integer userId,
+		                                              @PathVariable("year") Integer year,
+		                                              @PathVariable("month") Integer month) {
 
-        if(!transacaoService.validParameters(userId, year, month))
+        if(!transactionService.validParameters(userId, year, month))
             return ResponseEntity.badRequest().body("Erro!! Parametros invalidos.");
 
-        var transactions = transacaoService.generateTransactionsMock(userId, year, month);
+        var transactions = transactionService.generate(userId, year, month);
         return ResponseEntity.ok().body(transactions);
     }
 

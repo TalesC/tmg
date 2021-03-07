@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import br.com.project.tmg.model.TransactionKey;
+import br.com.project.tmg.model.ParamsDTO;
 import br.com.project.tmg.model.Transaction;
 
 public class TransactionBuilder {
@@ -17,27 +18,23 @@ public class TransactionBuilder {
        super(); 
     }
 
-    public TransactionBuilder description(TransactionKey key, Integer index) {
-        
-        this.description = new TransactionDescriptionBuilder()
-        		.description(key, index)
-        		.build();
-
+    public TransactionBuilder description(String description) {
+        this.description = description; 
         return this;
     }
 
-    public TransactionBuilder value(TransactionKey key, Integer userId, Integer year, Integer month, Integer index) {
-        var multiplier = key.getRandomValue(index);
+    public TransactionBuilder value(TransactionKey key, ParamsDTO params) {
+        var multiplier = key.getRandomValue(params.getTransactionIndex());
         var signal = Math.pow(-1, multiplier);
 
-        Double valor = (multiplier * userId / month) * signal;
+        Double valor = (multiplier * params.getUserId() / params.getMonth()) * signal;
         this.value = valor.intValue();
 
         return this;
     }
 
-    public TransactionBuilder date(Integer year, Integer month, Integer index){
-        var data = LocalDate.of(year, month, getDay(year, month, index));
+    public TransactionBuilder date(ParamsDTO params){
+        var data = LocalDate.of(params.getYear(), params.getMonth(), getDay(params));
         Timestamp timestamp = Timestamp.valueOf(data.atStartOfDay());
 
         this.date = timestamp.getTime();
@@ -50,10 +47,10 @@ public class TransactionBuilder {
     }
 
 
-    private  int getDay(int ano, int mes, int index) {
-        var firstDay= LocalDate.of(ano, mes, 1);
+    private  int getDay(ParamsDTO params) {
+        var firstDay= LocalDate.of(params.getYear(), params.getMonth(), 1);
         var maxDayOfMonth = firstDay.withDayOfMonth(firstDay.getMonth().length(firstDay.isLeapYear())).getDayOfMonth();
-        var day = index;
+        var day = params.getTransactionIndex();
 
         while(day > maxDayOfMonth) {
             day = day / maxDayOfMonth;

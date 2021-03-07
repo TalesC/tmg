@@ -22,7 +22,7 @@ class TransactionServiceTest {
 
     @BeforeEach
     void init() {
-        this.transacoes = service.generateTransactionsMock(1000, 2019, 12);
+        this.transacoes = service.generate(1000, 2019, 12);
     }
 
     @Test
@@ -39,7 +39,7 @@ class TransactionServiceTest {
 
     @Test
     void deveRetornarMesmaListaParaMesmaInputDeDados() {
-        var transacoes2 = service.generateTransactionsMock(1000, 2019, 12);
+        var transacoes2 = service.generate(1000, 2019, 12);
 
         Assertions.assertEquals(this.transacoes, transacoes2);
     }
