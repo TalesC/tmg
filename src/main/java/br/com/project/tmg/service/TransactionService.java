@@ -17,7 +17,7 @@ public class TransactionService {
 
 	public boolean validParameters(Integer userId, Integer year, Integer month) {
         return (userId >= 1000 && userId <= 100000) &&
-               (year <= LocalDate.now().getYear() && year >= 1962) &&
+               (year <= LocalDate.now().getYear() && year > 0) &&
                (month >= 1 && month <= 12);
     }
 	
