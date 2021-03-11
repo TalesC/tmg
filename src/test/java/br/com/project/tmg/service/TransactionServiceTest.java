@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.project.tmg.model.Transaction;
+import br.com.project.tmg.service.impl.TransactionServiceImpl;
 
 @SpringBootTest
 class TransactionServiceTest {
@@ -18,7 +19,7 @@ class TransactionServiceTest {
     private List<Transaction> transacoes;
 
     @Autowired
-    private TransactionService service;
+    private TransactionServiceImpl service;
 
     @BeforeEach
     void init() {

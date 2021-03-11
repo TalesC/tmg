@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import br.com.project.tmg.service.TransactionService;
+import br.com.project.tmg.service.impl.TransactionServiceImpl;
 
 
 @WebMvcTest(TransactionController.class)
@@ -22,7 +22,7 @@ class TransactionControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private TransactionService service;
+    private TransactionServiceImpl service;
     
     @Test
     void deveRetornarStatusOKQuandoBuscarGerarListarTransacoes() throws Exception {
